@@ -83,7 +83,48 @@ void printList(const int list[], int size)
 
 int insertNum(int list[], int size)
 {
-	return 0;
+    int tempValOne = 0;
+    int tempValTwo = 0;
+    int count = 0;
+	// iterate through array
+	for (int i = 0; i < size; i++) {
+	    if (i > size) {
+	     return size;   
+	    }
+	    
+	    // check if current value is even
+	    if (list[i] % 2 == 0) {
+	        // increase count
+	        count++;
+	        // save iteration and number after
+	            tempValOne = list[i];
+	            tempValTwo = list[i + 1];
+	           // set new number
+	            list[i] = list[i] - 1;
+	            list[i + 1] = tempValOne;
+	            
+	            // debugging text
+	           cout << "tempValOne: " << tempValOne << endl << endl;
+	           cout << "tempValTwo: " << tempValTwo << endl << endl;
+	            
+	        
+	        // shift the numbers from where the new number gets placed
+	        for (int j = i + 2; j < size; j++) {
+	            
+	        
+	        
+	        
+	       
+	        }
+	        
+	    }
+	
+	}
+	// increase size to account for the new numbers
+	size += count;
+	
+	
+	return size;
 }
 
 //counts the odd numbers in the array and returns the count.
@@ -91,7 +132,15 @@ int insertNum(int list[], int size)
 
 int oddCount(int array[], int size)
 {
-	return 0;
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (array[i] % 2 != 0) {
+            count++;
+        }
+    }
+    
+    
+    return count;
 }
 
 
