@@ -5,8 +5,9 @@ using namespace std;
 
 const int MAXCHAR = 256;
 
-// Create a "profile" struct here
+struct Profiles
 
+void openFile(ifstream& inFile);
 void openFile(ofstream& outFile);
 void getUserInfo(char name[], int& age, char favColor[], char funFact[]);
 void generateAboutMeWebPage(ofstream& outFile, char name[], int age, char favColor[], char funFact[]);
@@ -66,6 +67,8 @@ void generateAboutMeWebPage(ofstream& outFile, char name[], int age, char favCol
     outFile << "    </head>\n";
     outFile << "    <body>\n";
     
+    // read the csv file into an array of Profile structs
+
     outFile << "    <div style=\"background-color: " << favColor << ";\">\n";
     outFile << "        <h1>Hello! My name is " << name << ".</h1>\n";
     outFile << "        <p>" << age << "</p>\n";
