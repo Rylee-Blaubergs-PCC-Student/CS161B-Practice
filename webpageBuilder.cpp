@@ -5,25 +5,34 @@ using namespace std;
 
 const int MAXCHAR = 256;
 
-struct Profiles
-
-void openFile(ifstream& inFile);
-void openFile(ofstream& outFile);
-void getUserInfo(char name[], int& age, char favColor[], char funFact[]);
-void generateAboutMeWebPage(ofstream& outFile, char name[], int age, char favColor[], char funFact[]);
-        
-int main() {
+struct Profile {
     char name[MAXCHAR];
     int age;
     char favColor[MAXCHAR];
     char funFact[MAXCHAR];
+};
+
+void openFile(ifstream& inFile);
+void openFile(ofstream& outFile);
+void getUserInfo(Profile& p, ifstream& inFile);
+void generateAboutMeWebPage(ofstream& outFile, Profile p);
+        
+int main() {
+Profile p;
+
+
+    // Load data from file
+    ifstream petFile;
+    char inFilename[MAXCHAR] = "cats_vs_dogs.csv";
+    openFile(petFile, inFilename);
     
-    getUserInfo(name, age, favColor, funFact);
+    // get data from file
+    getUserInfo(p);
 
     ofstream outFile;
     openFile(outFile);
 
-    generateAboutMeWebPage(outFile, name, age, favColor, funFact);
+    generateAboutMeWebPage(outFile, p);
 
     outFile.close();
     cout << "Your HTML file has been created! Open 'AboutOurClass.html' in a browser to see it." << endl;
@@ -32,20 +41,19 @@ int main() {
 
 // Get user input for the users name, age, favorite color, and a fun fact.
 // Modify to use a struct for a "profile"
-void getUserInfo(char name[], int& age, char favColor[], char funFact[]){
-    cout << "What's your name?: ";
-    cin.getline(name, 100);
+void getUserInfo(Profile p, ifstream& inFile){
 
-    cout << "What's your age?: ";
-    cin >> age;
-    cin.ignore(99999, '\n');
 
-    cout << "What's your favorite color?: ";
-    cin.getline(favColor, 100);
 
-    cout << "What's fun fact about yourself?: ";
-    cin.getline(funFact, 100);
+}
 
+
+void openFile(ifstream& inFile){
+  inFile.open("");
+  if(!inFile.is_open()){
+    cout << "Could not open " << filename << "for reading, exiting..." << endl;
+    exit(1);
+  }
 }
 
 
@@ -58,7 +66,7 @@ void openFile(ofstream& outFile){
 }
 
 // Modify to use a struct for a "profile"
-void generateAboutMeWebPage(ofstream& outFile, char name[], int age, char favColor[], char funFact[]){
+void generateAboutMeWebPage(ofstream& outFile, Profile p){
     
     outFile << "<!DOCTYPE html>\n";
     outFile << "<html>\n";
@@ -69,12 +77,11 @@ void generateAboutMeWebPage(ofstream& outFile, char name[], int age, char favCol
     
     // read the csv file into an array of Profile structs
 
-    outFile << "    <div style=\"background-color: " << favColor << ";\">\n";
-    outFile << "        <h1>Hello! My name is " << name << ".</h1>\n";
-    outFile << "        <p>" << age << "</p>\n";
-    outFile << "        <p><b>Fun fact:</b> " << funFact << "</p>\n"  ;
+    outFile << "    <div style=\"background-color: " << p.favColor << ";\">\n";
+    outFile << "        <h1>Hello! My name is " << p.name << ".</h1>\n";
+    outFile << "        <p>" << p.age << "</p>\n";
+    outFile << "        <p><b>Fun fact:</b> " << p.funFact << "</p>\n"  ;
     outFile << "    </div>\n";
-    
     
     
     outFile << "    </body>\n";
