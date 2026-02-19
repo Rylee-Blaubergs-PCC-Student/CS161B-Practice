@@ -79,7 +79,7 @@ PetDB loadPetsFile(ifstream& f){
   // into a Pet struct. Add that Pet struct to the PetDB
   f.ignore(9999, '\n'); // ignore header line
   while(!f.eof() && db.size < MAXPETS - 1 ){
-    Pet p;
+    // Pet p;
     f.getline(p.name, 256, ',');
     f.getline(p.species, 256, ',');
     f >> p.age;
@@ -87,9 +87,9 @@ PetDB loadPetsFile(ifstream& f){
     
     // debug text
     // cout << "[" << db.size << "]" << " " << db.pets[db.size].name << " is a " << db.pets[db.size].species << " and is " << db.pets[db.size].age << " years old" << endl;
-    strcpy(db.pets[db.size].name, p.name);
-    strcpy(db.pets[db.size].species, p.species);
-    db.pets[db.size].age = p.age;
+    // strcpy(db.pets[db.size].name, p.name);
+    // strcpy(db.pets[db.size].species, p.species);
+    // db.pets[db.size].age = p.age;
 
     
     db.size++;
