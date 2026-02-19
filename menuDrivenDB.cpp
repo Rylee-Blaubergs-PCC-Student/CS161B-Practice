@@ -5,7 +5,7 @@ using namespace std;
 
 // globals
 const int MAXCHAR = 64;
-const int MAXPET = 32;
+const int MAXPETS = 32;
 
 // structs
 struct Pet {
@@ -20,14 +20,14 @@ struct PetDB { // DB stands for database
 };
 
 // prototypes
-void printDB(const PetDB& db){
-void addPet(PetDB& db){
-void removeEntry(PetDB& db, int position){
-void delPet(PetDB& db){
-PetDB loadPetsFile(ifstream& f){
-PetDB initDatabase(){
-void mainMenuLoop(PetDB& db){
-void writeFile(const PetDB& db){
+void printDB(const PetDB& db);
+void addPet(PetDB& db);
+void removeEntry(PetDB& db, int position);
+void delPet(PetDB& db);
+PetDB loadPetsFile(ifstream& f);
+PetDB initDatabase();
+void mainMenuLoop(PetDB& db);
+void writeFile(const PetDB& db);
 
 // Check out this small main function that primarily just calls
 // other functions
@@ -45,6 +45,9 @@ void printDB(const PetDB& db){
   // [1] vim is a cat and is 3 years old
   // [2] Mr. Glubbs is a goldfish and is 1 years old
   // Include a number for each pet so the user can delete a particular entry
+  for(int i = 0; i < db.size + 1; i++) {
+    cout << "[" << i << "]" << " " << db.pets[i].name << " is a " << db.pets[i].species << " and is " << db.pets[i].age << " years old" << endl;
+  }
 }
 
 
@@ -71,8 +74,30 @@ void delPet(PetDB& db){
 
 PetDB loadPetsFile(ifstream& f){
   // Create a PetDB struct
+  PetDB db; 
   // Read each line of data from the pet spreadsheet csv file, loading it 
   // into a Pet struct. Add that Pet struct to the PetDB
+  f.ignore(9999, '\n'); // ignore header line
+  while(!f.eof() && db.size < MAXPETS - 1 ){
+    Pet p;
+    f.getline(p.name, 256, ',');
+    f.getline(p.species, 256, ',');
+    f >> p.age;
+    f.ignore(256, '\n');
+    
+    // debug text
+    // cout << "[" << db.size << "]" << " " << db.pets[db.size].name << " is a " << db.pets[db.size].species << " and is " << db.pets[db.size].age << " years old" << endl;
+    strcpy(db.pets[db.size].name, p.name);
+    strcpy(db.pets[db.size].species, p.species);
+    db.pets[db.size].age = p.age;
+
+    
+    db.size++;
+  }
+  db.size--;
+
+  return db;
+
 }
 
 
